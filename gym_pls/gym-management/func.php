@@ -280,7 +280,22 @@ if (isset($_POST['delete_trainer'])) {
 
 
 
+if (isset($_POST['delete_member'])) {
+    $delete_id = $_POST['delete_id'];
 
+    $update_payments = "UPDATE payment SET member_id = NULL WHERE member_id = '$delete_id'";
+    mysqli_query($con, $update_payments);
+
+    $delete_query = "DELETE FROM members WHERE member_id = '$delete_id'";
+    $result = mysqli_query($con, $delete_query);
+
+    if ($result) {
+        echo "<script>alert('Member deleted');</script>";
+        echo "<script>window.location.href='trainer_details.php';</script>";
+    } else {
+        echo "<script>alert('Error deleting member');</script>";
+    }
+}
 
 
 if (!function_exists('get_patient_details')) {
